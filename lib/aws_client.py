@@ -1,3 +1,6 @@
+import boto3
+
+
 class AWSClients:
     client = boto3.client('ssm')
 

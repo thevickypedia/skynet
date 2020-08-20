@@ -30,10 +30,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_2(self):
@@ -51,10 +51,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_3(self):
@@ -72,10 +72,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_4(self):
@@ -93,10 +93,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_5(self):
@@ -114,10 +114,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_6(self):
@@ -135,10 +135,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_7(self):
@@ -156,10 +156,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_8(self):
@@ -177,10 +177,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_9(self):
@@ -198,10 +198,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_10(self):
@@ -219,10 +219,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_11(self):
@@ -240,10 +240,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_12(self):
@@ -261,10 +261,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_13(self):
@@ -282,10 +282,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_14(self):
@@ -303,10 +303,10 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
     def stock_15(self):
@@ -324,22 +324,218 @@ class StockChecker:
             msg = f"The current price of {stock_name} is: ${price}"
 
             if price < threshold:
-                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
                 return message
             elif price > maxi:
-                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
                 return message_
 
+    def stock_16(self):
+        if os.getenv('stock_16') and os.getenv('stock_16_max') and os.getenv('stock_16_min'):
+            stock = os.getenv('stock_16')
+            threshold = float(os.getenv('stock_16_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
 
-print(StockChecker().stock_1())
-print(StockChecker().stock_2())
-print(StockChecker().stock_3())
-print(StockChecker().stock_4())
-print(StockChecker().stock_5())
-print(StockChecker().stock_6())
-print(StockChecker().stock_7())
-print(StockChecker().stock_8())
-print(StockChecker().stock_9())
-print(StockChecker().stock_10())
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
 
-print(round(time.perf_counter()))
+    def stock_17(self):
+        if os.getenv('stock_17') and os.getenv('stock_17_max') and os.getenv('stock_17_min'):
+            stock = os.getenv('stock_17')
+            threshold = float(os.getenv('stock_17_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_18(self):
+        if os.getenv('stock_18') and os.getenv('stock_18_max') and os.getenv('stock_18_min'):
+            stock = os.getenv('stock_18')
+            threshold = float(os.getenv('stock_18_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_19(self):
+        if os.getenv('stock_19') and os.getenv('stock_19_max') and os.getenv('stock_19_min'):
+            stock = os.getenv('stock_19')
+            threshold = float(os.getenv('stock_19_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_20(self):
+        if os.getenv('stock_20') and os.getenv('stock_20_max') and os.getenv('stock_20_min'):
+            stock = os.getenv('stock_20')
+            threshold = float(os.getenv('stock_20_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_21(self):
+        if os.getenv('stock_21') and os.getenv('stock_21_max') and os.getenv('stock_21_min'):
+            stock = os.getenv('stock_21')
+            threshold = float(os.getenv('stock_21_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_22(self):
+        if os.getenv('stock_22') and os.getenv('stock_22_max') and os.getenv('stock_22_min'):
+            stock = os.getenv('stock_22')
+            threshold = float(os.getenv('stock_22_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_23(self):
+        if os.getenv('stock_23') and os.getenv('stock_23_max') and os.getenv('stock_23_min'):
+            stock = os.getenv('stock_23')
+            threshold = float(os.getenv('stock_23_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_24(self):
+        if os.getenv('stock_24') and os.getenv('stock_24_max') and os.getenv('stock_24_min'):
+            stock = os.getenv('stock_24')
+            threshold = float(os.getenv('stock_24_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_
+
+    def stock_25(self):
+        if os.getenv('stock_25') and os.getenv('stock_25_max') and os.getenv('stock_25_min'):
+            stock = os.getenv('stock_25')
+            threshold = float(os.getenv('stock_25_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}\n{msg}\n\n'
+                return message_

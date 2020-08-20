@@ -3,16 +3,13 @@
  * Created:   08.19.2020
  *
  **/"""
-import os
-
 from pyrh import Robinhood
 
-u = os.getenv('user')
-p = os.getenv('pass')
-q = os.getenv('qr')
-if not u or not p or not q:
-    print("\nCheck your local environment variables. It should be set as:\n"
-          "'user=<login_email>'\n'pass=<password>'\n'qr=<qr_code>'")
-    exit(1)
+from lib.aws_client import AWSClients
+
+u = AWSClients().user()
+p = AWSClients().pass_()
+q = AWSClients().qr_code()
 rh = Robinhood()
 rh.login(username=u, password=p, qr_code=q)
+print(rh)

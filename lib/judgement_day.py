@@ -225,6 +225,111 @@ class StockChecker:
                 message_ = f'{stock} is currently more than ${maxi}\n\n{msg}\n\n'
                 return message_
 
+    def stock_11(self):
+        if os.getenv('stock_11') and os.getenv('stock_11_max') and os.getenv('stock_11_min'):
+            stock = os.getenv('stock_11')
+            threshold = float(os.getenv('stock_11_min'))
+            maxi = float(os.getenv('stock_11_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                return message_
+
+    def stock_12(self):
+        if os.getenv('stock_12') and os.getenv('stock_12_max') and os.getenv('stock_12_min'):
+            stock = os.getenv('stock_12')
+            threshold = float(os.getenv('stock_12_min'))
+            maxi = float(os.getenv('stock_12_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                return message_
+
+    def stock_13(self):
+        if os.getenv('stock_13') and os.getenv('stock_13_max') and os.getenv('stock_13_min'):
+            stock = os.getenv('stock_13')
+            threshold = float(os.getenv('stock_13_min'))
+            maxi = float(os.getenv('stock_13_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                return message_
+
+    def stock_14(self):
+        if os.getenv('stock_14') and os.getenv('stock_14_max') and os.getenv('stock_14_min'):
+            stock = os.getenv('stock_14')
+            threshold = float(os.getenv('stock_14_min'))
+            maxi = float(os.getenv('stock_14_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                return message_
+
+    def stock_15(self):
+        if os.getenv('stock_15') and os.getenv('stock_15_max') and os.getenv('stock_15_min'):
+            stock = os.getenv('stock_15')
+            threshold = float(os.getenv('stock_15_min'))
+            maxi = float(os.getenv('stock_15_max'))
+            raw_details = rh.get_quote(stock)
+            call = raw_details['instrument']
+            r = requests.get(call)
+            response = r.text
+            json_load = json.loads(response)
+            stock_name = json_load['simple_name']
+            price = round(float(raw_details['last_trade_price']), 2)
+            msg = f"The current price of {stock_name} is: ${price}"
+
+            if price < threshold:
+                message = f'{stock} is currently less than ${threshold}.\n\n{msg}\n\n'
+                return message
+            elif price > maxi:
+                message_ = f'{stock} is currently more than ${maxi}.\n\n{msg}\n\n'
+                return message_
+
 
 print(StockChecker().stock_1())
 print(StockChecker().stock_2())

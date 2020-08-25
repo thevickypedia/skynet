@@ -44,10 +44,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_2(self):
@@ -80,10 +80,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_3(self):
@@ -116,10 +116,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_4(self):
@@ -152,10 +152,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_5(self):
@@ -188,10 +188,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_6(self):
@@ -224,10 +224,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_7(self):
@@ -260,10 +260,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_8(self):
@@ -296,10 +296,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_9(self):
@@ -332,10 +332,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_10(self):
@@ -368,10 +368,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_11(self):
@@ -404,10 +404,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_12(self):
@@ -440,10 +440,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_13(self):
@@ -476,10 +476,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_14(self):
@@ -512,10 +512,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_15(self):
@@ -548,10 +548,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_16(self):
@@ -584,10 +584,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_17(self):
@@ -620,10 +620,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_18(self):
@@ -656,10 +656,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_19(self):
@@ -692,10 +692,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_20(self):
@@ -728,10 +728,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_21(self):
@@ -764,10 +764,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_22(self):
@@ -800,10 +800,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_23(self):
@@ -836,10 +836,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_24(self):
@@ -872,10 +872,10 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_
 
     def stock_25(self):
@@ -908,8 +908,8 @@ class StockChecker:
                 week_list = f"Week's change list: {week_numbers}"
 
                 if price < threshold:
-                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n\n'
+                    message = f'{stock} is currently less than ${threshold}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message
                 elif price > maxi:
-                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{week_list}\n\n'
+                    message_ = f'{stock} is currently more than ${maxi}\n{msg}\n{day_list}\n{week_list}\n\n'
                     return message_

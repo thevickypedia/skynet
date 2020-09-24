@@ -160,7 +160,7 @@ def send_email():
 
 def send_whatsapp(data, context):
     if market_status():
-        whatsapp_msg = send_email()
+        whatsapp_msg = email_formatter()
         if whatsapp_msg:
             from twilio.rest import Client
             whatsapp_send = AWSClients().send()

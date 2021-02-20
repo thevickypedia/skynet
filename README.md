@@ -1,7 +1,7 @@
 # Skynet
 Stock Alerter using Robinhood api
 
-This script is designed to run only on AWS using all the parameters received from SSM in the [aws_client](lib/aws_client.py) file.
+This script is designed to run only on AWS using all the parameters received from SSM in the [aws_client](aws_client.py) file.
 
 The stock ticker value, minimum amount below and maximum amount above which you'd like to be notified has to be added as env variables in the lambda function. 
 

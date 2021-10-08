@@ -1,31 +1,23 @@
-"""/**
- * Author:  Vignesh Sivanandha Rao
- * Created:   08.19.2020
- *
- **/"""
-import json
-import os
-import time
 from datetime import datetime, date
+from os import environ, path
+from time import perf_counter
 
-import pytz
-import requests
-from pyrh.exceptions import InvalidTickerSymbol
+from dotenv import load_dotenv
 from pyrh import Robinhood
+from pyrh.exceptions import InvalidTickerSymbol
+from requests import get
 
-from aws_client import AWSClients
+if path.isfile('.env'):
+    load_dotenv(dotenv_path='.env', override=True, verbose=True)
 
-current_time = datetime.now(pytz.timezone('US/Central'))
-dt_string = current_time.strftime("%A, %B %d, %Y %I:%M %p")
-
-logs = 'https://us-west-2.console.aws.amazon.com/cloudwatch/home#logStream:group=/aws/lambda/skynet'
+dt_string = datetime.now().strftime("%A, %B %d, %Y %I:%M %p")
 
 rh = Robinhood()
 
 
 def market_status():
     """Checks market status and returns True only if markets are open."""
-    url = requests.get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
+    url = get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
     today = date.today().strftime("%B %d, %Y")
     if today in url.text:
         print(f'{today}: The markets are closed today.')
@@ -36,13 +28,9 @@ def market_status():
 def stock_checker(stock_ticker, stock_max, stock_min):
     """Receives ticker, max and min values and returns the changes on each stock if current price < min or > max."""
     raw_details = rh.get_quote(stock_ticker)
-    call = raw_details['instrument']
-    r = requests.get(call)
-    response = r.text
-    json_load = json.loads(response)
-    stock_name = json_load['simple_name']
     price = round(float(raw_details['last_trade_price']), 2)
-    msg = f"The current price of {stock_name} is: ${price}"
+    call = raw_details['instrument']
+    msg = f"The current price of {get(call).json()['simple_name']} is: ${price}"
 
     if price < stock_min or price > stock_max:
         day_data = rh.get_historical_quotes(stock_ticker, 'hour', 'day')
@@ -72,46 +60,43 @@ def stock_checker(stock_ticker, stock_max, stock_min):
 
 def formatter():
     """Triggers the stock checker and formats the whats app message as needed."""
-    robinhood_user = AWSClients().robinhood_user()
-    robinhood_pass = AWSClients().robinhood_pass()
-    robinhood_qr = AWSClients().robinhood_qr()
-    rh.login(username=robinhood_user, password=robinhood_pass, qr_code=robinhood_qr)
+    rh.login(username=environ.get('robinhood_user'), password=environ.get('robinhood_pass'),
+             qr_code=environ.get('robinhood_qr'))
 
     email_text = ''
     for n in range(1, 101):
-        if (stock_ticker := os.getenv(f'stock_{n}')) and (stock_max := os.getenv(f'stock_{n}_max')) and \
-                (stock_min := os.getenv(f'stock_{n}_min')):
+        if (stock_ticker := environ.get(f'stock_{n}')) and (stock_max := environ.get(f'stock_{n}_max')) and \
+                (stock_min := environ.get(f'stock_{n}_min')):
             try:
                 # noinspection PyUnboundLocalVariable
                 if result := stock_checker(stock_ticker, float(stock_max), float(stock_min)):
+                    print(result)
                     email_text += result
             except InvalidTickerSymbol:
                 print(f'Faced an InvalidTickerSymbol with the Ticker::{stock_ticker}')
 
     rh.logout()
-
-    if email_text:
-        print(email_text)
-        return f'{dt_string}\n\nSkynet Alert\n\n{email_text}Log info here\n{logs}'
-    else:
-        print('I’ll Be Back...')
+    return email_text
 
 
-def send_whatsapp(data, context):
+def monitor():
     """Triggers formatter and sends a whats app notification if there were any bothering changes in price."""
     if market_status():
-        if whatsapp_msg := formatter():
-            from twilio.rest import Client
-            whatsapp_send = AWSClients().send()
-            whatsapp_receive = AWSClients().receive()
-            sid = AWSClients().sid()
-            token = AWSClients().token()
-            from_number = f"whatsapp:{whatsapp_send}"
-            to_number = f"whatsapp:{whatsapp_receive}"
-            client = Client(sid, token)
-            client.messages.create(body=whatsapp_msg, from_=from_number, to=to_number)
-    print(f"Terminated in {round(float(time.perf_counter()), 2)} seconds")
+        if notification := formatter():
+            from gmailconnector.send_sms import Messenger
+            gmail_user = environ.get('gmail_user')
+            gmail_pass = environ.get('gmail_pass')
+            phone = environ.get('phone')
+            notify = Messenger(gmail_user=gmail_user, gmail_pass=gmail_pass, phone_number=phone,
+                               subject=f'{dt_string}\nSkynet Alert', message=notification).send_sms()
+            if notify.get('ok'):
+                print(f'Notification was sent to {phone}')
+            else:
+                print(f'Failed to send notification to {phone}')
+        else:
+            print('I`ll be Back...')
+    print(f"Terminated in {round(float(perf_counter()), 2)} seconds")
 
 
 if __name__ == '__main__':
-    send_whatsapp("data", "context")
+    monitor()

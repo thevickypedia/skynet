@@ -1,4 +1,5 @@
 from datetime import datetime, date
+from logging import basicConfig, getLogger, INFO
 from os import environ, path
 from time import perf_counter
 
@@ -6,6 +7,10 @@ from dotenv import load_dotenv
 from pyrh import Robinhood
 from pyrh.exceptions import InvalidTickerSymbol
 from requests import get
+
+basicConfig(level=INFO, datefmt='%b-%d-%Y %H:%M:%S',
+            format='%(asctime)s - %(levelname)s - %(funcName)s - Line: %(lineno)d - %(message)s')
+logger = getLogger(__name__)
 
 if path.isfile('.env'):
     load_dotenv(dotenv_path='.env', override=True, verbose=True)
@@ -20,7 +25,7 @@ def market_status():
     url = get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
     today = date.today().strftime("%B %d, %Y")
     if today in url.text:
-        print(f'{today}: The markets are closed today.')
+        logger.warning(f'{today}: The markets are closed today.')
     else:
         return True
 
@@ -70,10 +75,10 @@ def formatter():
             try:
                 # noinspection PyUnboundLocalVariable
                 if result := stock_checker(stock_ticker, float(stock_max), float(stock_min)):
-                    print(result)
+                    logger.info(result)
                     email_text += result
             except InvalidTickerSymbol:
-                print(f'Faced an InvalidTickerSymbol with the Ticker::{stock_ticker}')
+                logger.error(f'Faced an InvalidTickerSymbol with the Ticker::{stock_ticker}')
 
     rh.logout()
     return email_text
@@ -90,12 +95,12 @@ def monitor():
             notify = Messenger(gmail_user=gmail_user, gmail_pass=gmail_pass, phone_number=phone,
                                subject=f'{dt_string}\nSkynet Alert', message=notification).send_sms()
             if notify.get('ok'):
-                print(f'Notification was sent to {phone}')
+                logger.info(f'Notification was sent to {phone}')
             else:
-                print(f'Failed to send notification to {phone}')
+                logger.error(f'Failed to send notification to {phone}')
         else:
-            print('I`ll be Back...')
-    print(f"Terminated in {round(float(perf_counter()), 2)} seconds")
+            logger.info('I`ll be Back...')
+    logger.info(f"Terminated in {round(float(perf_counter()), 2)} seconds")
 
 
 if __name__ == '__main__':

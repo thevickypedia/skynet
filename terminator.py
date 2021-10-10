@@ -69,6 +69,7 @@ def formatter():
              qr_code=environ.get('robinhood_qr'))
 
     email_text = ''
+    analyzed = 0
     for n in range(1, 101):
         if (stock_ticker := environ.get(f'stock_{n}')) and (stock_max := environ.get(f'stock_{n}_max')) and \
                 (stock_min := environ.get(f'stock_{n}_min')):
@@ -77,9 +78,10 @@ def formatter():
                 if result := stock_checker(stock_ticker, float(stock_max), float(stock_min)):
                     logger.info(result)
                     email_text += result
+                analyzed += 1
             except InvalidTickerSymbol:
                 logger.error(f'Faced an InvalidTickerSymbol with the Ticker::{stock_ticker}')
-
+    logger.info(f'Successfully analyzed {analyzed} stocks.')
     rh.logout()
     return email_text
 
@@ -99,7 +101,7 @@ def monitor():
             else:
                 logger.error(f'Failed to send notification to {phone}')
         else:
-            logger.info('I`ll be Back...')
+            logger.info('Nothing to report.')
     logger.info(f"Terminated in {round(float(perf_counter()), 2)} seconds")
 
 

@@ -4,6 +4,7 @@ from os import environ, path
 from time import perf_counter
 
 from dotenv import load_dotenv
+from gmailconnector.send_sms import Messenger
 from pyrh import Robinhood
 from pyrh.exceptions import InvalidTickerSymbol
 from requests import get
@@ -90,16 +91,16 @@ def monitor():
     """Triggers formatter and sends a whats app notification if there were any bothering changes in price."""
     if market_status():
         if notification := formatter():
-            from gmailconnector.send_sms import Messenger
             gmail_user = environ.get('gmail_user')
             gmail_pass = environ.get('gmail_pass')
             phone = environ.get('phone')
             notify = Messenger(gmail_user=gmail_user, gmail_pass=gmail_pass, phone_number=phone,
                                subject=f'{dt_string}\nSkynet Alert', message=notification).send_sms()
-            if notify.get('ok'):
+            if notify.ok:
                 logger.info(f'Notification was sent to {phone}')
             else:
                 logger.error(f'Failed to send notification to {phone}')
+                logger.error(notify.json())
         else:
             logger.info('Nothing to report.')
     logger.info(f"Terminated in {round(float(perf_counter()), 2)} seconds")

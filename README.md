@@ -7,7 +7,7 @@ The stock ticker value, minimum amount below and maximum amount above which you'
 
 Below is an example for a single stock, this can be extended up to monitoring 25 stocks.
 
-- Example: 
+- Example:
     - stock_1 = AMZN
     - stock_1_min = 3000
     - stock_1_max = 4000
@@ -16,6 +16,10 @@ For notifications, store env vars as below (either in `.env` file or as regular 
   - `gmail_user = xxx@yyy@gmail.com`
   - `gmail_pass = PASSWORD`
   - `phone = +1234567890`
+
+
+- Sample `CRON` entry:
+> `*/5 8-16 * * 1-5  cd ${HOME}/skynet && source venv/bin/activate && export CRON=1 && python3 terminator.py >> ${HOME}/skynet/script_output.log && deactivate`
 
 ## License & copyright
 

@@ -1,4 +1,6 @@
 .idea
 venv
-env_vars.json
 .env
+
+# Created by CRON
+script_output.log

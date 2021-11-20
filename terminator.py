@@ -20,13 +20,27 @@ dt_string = datetime.now().strftime("%A, %B %d, %Y %I:%M %p")
 
 rh = Robinhood()
 
+ENV = environ.get('CRON', None)
+
+
+def log(msg: str, err: bool = False) -> None:
+    """Logs or prints the message as necessary."""
+    if ENV:
+        print(msg)
+    else:
+        if err:
+            logger.error(msg=msg)
+        else:
+            logger.info(msg=msg)
+
 
 def market_status():
     """Checks market status and returns True only if markets are open."""
+    log(msg=dt_string)
     url = get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
     today = date.today().strftime("%B %d, %Y")
     if today in url.text:
-        logger.warning(f'{today}: The markets are closed today.')
+        log(msg=f'{today}: The markets are closed today.')
     else:
         return True
 
@@ -77,12 +91,12 @@ def formatter():
             try:
                 # noinspection PyUnboundLocalVariable
                 if result := stock_checker(stock_ticker, float(stock_max), float(stock_min)):
-                    logger.info(result)
+                    log(msg=result)
                     email_text += result
                 analyzed += 1
             except InvalidTickerSymbol:
-                logger.error(f'Faced an InvalidTickerSymbol with the Ticker::{stock_ticker}')
-    logger.info(f'Successfully analyzed {analyzed} stocks.')
+                log(msg=f'Faced an InvalidTickerSymbol with the Ticker::{stock_ticker}', err=True)
+    log(msg=f'Successfully analyzed {analyzed} stocks.')
     rh.logout()
     return email_text
 
@@ -97,13 +111,13 @@ def monitor():
             notify = Messenger(gmail_user=gmail_user, gmail_pass=gmail_pass, phone_number=phone,
                                subject=f'{dt_string}\nSkynet Alert', message=notification).send_sms()
             if notify.ok:
-                logger.info(f'Notification was sent to {phone}')
+                log(msg=f'Notification was sent to {phone}')
             else:
-                logger.error(f'Failed to send notification to {phone}')
-                logger.error(notify.json())
+                log(msg=f'Failed to send notification to {phone}', err=True)
+                log(msg=notify.body, err=True)
         else:
-            logger.info('Nothing to report.')
-    logger.info(f"Terminated in {round(float(perf_counter()), 2)} seconds")
+            log(msg='Nothing to report.')
+    log(msg=f"Terminated in {round(float(perf_counter()), 2)} seconds\n\n")
 
 
 if __name__ == '__main__':

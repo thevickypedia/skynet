@@ -51,4 +51,4 @@ Clean code with pre-commit hooks: [`flake8`](https://flake8.pycqa.org/en/latest/
 
 &copy; Vignesh Sivanandha Rao, Skynet
 
-Licensed under the [MIT License](LICENSE)
+Licensed under the [MIT License](https://github.com/thevickypedia/skynet/blob/master/LICENSE)

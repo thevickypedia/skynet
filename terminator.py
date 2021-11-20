@@ -1,7 +1,10 @@
-from datetime import datetime, date
-from logging import basicConfig, getLogger, INFO
+from datetime import date, datetime
+from json import load
+from json.decoder import JSONDecodeError
+from logging import INFO, basicConfig, getLogger
 from os import environ, path
 from time import perf_counter
+from typing import Union
 
 from dotenv import load_dotenv
 from gmailconnector.send_sms import Messenger
@@ -24,7 +27,12 @@ ENV = environ.get('CRON', None)
 
 
 def log(msg: str, err: bool = False) -> None:
-    """Logs or prints the message as necessary."""
+    """Logs or prints the message as necessary.
+
+    Args:
+        msg: Takes the message to be logged/printed as an argument.
+        err: Boolean flag whether or not to use ``logger.error``
+    """
     if ENV:
         print(msg)
     else:
@@ -45,8 +53,36 @@ def market_status():
         return True
 
 
-def stock_checker(stock_ticker, stock_max, stock_min):
-    """Receives ticker, max and min values and returns the changes on each stock if current price < min or > max."""
+def file_parser(input_file: str = 'stocks.json') -> dict:
+    """Reads the input file and loads the file as dictionary.
+
+    Args:
+        input_file: Takes the input file name as an argument.
+
+    Returns:
+        dict:
+        Returns a json blurb.
+    """
+    if path.isfile(input_file):
+        with open(input_file) as stock_file:
+            try:
+                return load(fp=stock_file)
+            except JSONDecodeError:
+                log(msg='Unable to load stocks.json.', err=True)
+
+
+def stock_checker(stock_ticker: str, stock_max: Union[str, int, float], stock_min: Union[str, int, float]) -> str:
+    """Checks whether the current price of the stock has increased or decreased.
+
+    Args:
+        stock_ticker: Stock ticker value.
+        stock_max: Maximum value after which a notification has to be triggered.
+        stock_min: Minimum value below which a notification has to be triggered.
+
+    Returns:
+        str:
+        Configured notification message.
+    """
     raw_details = rh.get_quote(stock_ticker)
     price = round(float(raw_details['last_trade_price']), 2)
     call = raw_details['instrument']
@@ -83,11 +119,15 @@ def formatter():
     rh.login(username=environ.get('robinhood_user'), password=environ.get('robinhood_pass'),
              qr_code=environ.get('robinhood_qr'))
 
+    if not (stocks_dict := file_parser()):
+        log(msg='Feed file not found.')
+        return
+
     email_text = ''
     analyzed = 0
-    for n in range(1, 101):
-        if (stock_ticker := environ.get(f'stock_{n}')) and (stock_max := environ.get(f'stock_{n}_max')) and \
-                (stock_min := environ.get(f'stock_{n}_min')):
+    for n in range(1, 7_501):
+        if (stock_ticker := stocks_dict.get(f'stock_{n}')) and (stock_max := stocks_dict.get(f'stock_{n}_max')) and \
+                (stock_min := stocks_dict.get(f'stock_{n}_min')):
             try:
                 # noinspection PyUnboundLocalVariable
                 if result := stock_checker(stock_ticker, float(stock_max), float(stock_min)):

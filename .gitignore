@@ -4,3 +4,6 @@ venv
 
 # Created by CRON
 script_output.log
+
+# Stocks input file
+stocks.json

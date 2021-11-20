@@ -1,6 +1,8 @@
 # Skynet
 Stock Alerter using Robinhood api
 
+This script is designed to run locally using a env vars stored in a `.env` file which is loaded upon startup.
+
 The stock ticker value, minimum amount below and maximum amount above which you'd like to be notified has to be added to a file: `stocks.json`. 
 
 Below is an example for a single stock, this can be extended up to monitoring `7,500` stocks.
@@ -15,9 +17,6 @@ Below is an example for a single stock, this can be extended up to monitoring `7
 ```
 
 ### Env Variables
-
-This script is designed to run locally using a env vars stored in a `.env` file which is loaded upon startup.
-
 Store env vars as below (either in `.env` file or as regular env vars)
 
 For stock analyzing:

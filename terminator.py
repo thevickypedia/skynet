@@ -105,9 +105,9 @@ def should_i_notify() -> dict:
                 previous = yaml.load(stream=file, Loader=yaml.FullLoader)
             remove = []
             for ticker, price in notification.items():
-                if get_change(current=price[1], previous=previous.get('stocks', {}).get(ticker)) < 5 and \
-                        time() - previous.get('session') < 1_800:
-                    remove.append(ticker)
+                if prev_price := previous.get('stocks', {}).get(ticker):
+                    if get_change(current=price[1], previous=prev_price) < 5 and time() - previous['session'] < 1_800:
+                        remove.append(ticker)
             if remove:
                 msg = f"No considerable changes on {', '.join(remove)}. Suppressing notifications to reduce noise."
                 print(f"\033[32m{prefix(level='INFO')}{msg}\033[00m")

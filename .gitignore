@@ -1,9 +1,16 @@
 .idea
 venv
 .env
+_build
 
 # Created by CRON
 script_output.log
 
 # Stocks input file
 stocks.json
+
+# Previous data - Useful only for cron scheduled runs
+previous.yaml
+
+# Test
+test.py

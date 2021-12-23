@@ -12,17 +12,24 @@ Welcome to Skynet's documentation!
 
    README
 
-Terminator - Robinhood
+Terminator
 ======================
 
 .. automodule:: terminator
    :members:
    :undoc-members:
 
-Eradicator - YahooFinance
-=========================
+Analyzer
+========
 
-.. automodule:: eradicator
+.. automodule:: gatherer.analyzer
+   :members:
+   :undoc-members:
+
+Tracer
+======
+
+.. automodule:: gatherer.traces
    :members:
    :undoc-members:
 

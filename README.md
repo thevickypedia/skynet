@@ -3,17 +3,20 @@ Stock Alerter using Robinhood api
 
 The stock ticker value, minimum amount below and maximum amount above which you'd like to be notified has to be added to a file: `stocks.json`. 
 
-Below is an example for a single stock, this can be extended up to monitoring `7,500` stocks.
+Below is an example for a single stock, this can be extended as needed.
 
 ### Source File
 ```json
 {
-  "stock_1": "AMZN",
-  "stock_1_min": 3000,
-  "stock_1_max": 4000
+  "AMZN": [3000, 4000]
 }
 ```
-
+[OR]
+```json
+{
+  "AAPL": "150, 350"
+}
+```
 ### Env Variables
 
 This script is designed to run locally using a env vars stored in a `.env` file which is loaded upon startup.
@@ -29,6 +32,8 @@ For notifications:
   - `gmail_user = xxx@yyy@gmail.com`
   - `gmail_pass = PASSWORD`
   - `phone = +1234567890`
+
+> :bulb: &nbsp; Phone numbers can be comma separated values, to notify multiple people.
 
 ### Coding Standards
 Docstring format: [`Google`](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) <br>

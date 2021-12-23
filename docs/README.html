@@ -45,13 +45,17 @@
 <h1>Skynet<a class="headerlink" href="#skynet" title="Permalink to this headline">¶</a></h1>
 <p>Stock Alerter using Robinhood api</p>
 <p>The stock ticker value, minimum amount below and maximum amount above which you’d like to be notified has to be added to a file: <code class="docutils literal notranslate"><span class="pre">stocks.json</span></code>.</p>
-<p>Below is an example for a single stock, this can be extended up to monitoring <code class="docutils literal notranslate"><span class="pre">7,500</span></code> stocks.</p>
+<p>Below is an example for a single stock, this can be extended as needed.</p>
 <section id="source-file">
 <h2>Source File<a class="headerlink" href="#source-file" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;stock_1&quot;</span><span class="p">:</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;stock_1_min&quot;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
-  <span class="nt">&quot;stock_1_max&quot;</span><span class="p">:</span> <span class="mi">4000</span>
+  <span class="nt">&quot;AMZN&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>[OR]</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;AAPL&quot;</span><span class="p">:</span> <span class="s2">&quot;150, 350&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -72,6 +76,9 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">gmail_pass</span> <span class="pre">=</span> <span class="pre">PASSWORD</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">phone</span> <span class="pre">=</span> <span class="pre">+1234567890</span></code></p></li>
 </ul>
+<blockquote>
+<div><p>:bulb:   Phone numbers can be comma separated values, to notify multiple people.</p>
+</div></blockquote>
 </section>
 <section id="coding-standards">
 <h2>Coding Standards<a class="headerlink" href="#coding-standards" title="Permalink to this headline">¶</a></h2>

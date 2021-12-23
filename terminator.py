@@ -1,54 +1,38 @@
 from datetime import date, datetime
 from json import load
 from json.decoder import JSONDecodeError
-from logging import INFO, basicConfig, getLogger
 from os import environ, path
-from time import perf_counter
-from typing import Union
+from time import perf_counter, time
 
+import yaml
+from boto3 import client
+from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 from gmailconnector.send_sms import Messenger
-from pyrh import Robinhood
-from pyrh.exceptions import InvalidTickerSymbol
 from requests import get
 
-basicConfig(level=INFO, datefmt='%b-%d-%Y %H:%M:%S',
-            format='%(asctime)s - %(levelname)s - %(funcName)s - Line: %(lineno)d - %(message)s')
-logger = getLogger(__name__)
+from gatherer.analyzer import Analyzer
+from gatherer.traces import prefix
 
-if path.isfile('.env'):
-    load_dotenv(dotenv_path='.env', override=True, verbose=True)
+load_dotenv(dotenv_path='.env', override=True, verbose=True)
 
 dt_string = datetime.now().strftime("%A, %B %d, %Y %I:%M %p")
 
-rh = Robinhood()
-
-ENV = environ.get('CRON', None)
+analyze = Analyzer()
 
 
-def log(msg: str, err: bool = False) -> None:
-    """Logs or prints the message as necessary.
+def market_status() -> bool:
+    """Checks market status and returns True only if markets are open.
 
-    Args:
-        msg: Takes the message to be logged/printed as an argument.
-        err: Boolean flag whether or not to use ``logger.error``
+    Returns:
+        bool:
+        True if markets are open on the current date.
     """
-    if ENV:
-        print(msg)
-    else:
-        if err:
-            logger.error(msg=msg)
-        else:
-            logger.info(msg=msg)
-
-
-def market_status():
-    """Checks market status and returns True only if markets are open."""
-    log(msg=dt_string)
+    print(f"\033[32m{prefix(level='INFO')}{dt_string}\033[00m")
     url = get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
     today = date.today().strftime("%B %d, %Y")
     if today in url.text:
-        log(msg=f'{today}: The markets are closed today.')
+        print(f"\033[2;33m{prefix(level='WARNING')}{today}: The markets are closed today.\033[00m")
     else:
         return True
 
@@ -68,96 +52,131 @@ def file_parser(input_file: str = 'stocks.json') -> dict:
             try:
                 return load(fp=stock_file)
             except JSONDecodeError:
-                log(msg='Unable to load stocks.json.', err=True)
+                print(f"\033[31m{prefix(level='ERROR')}Unable to load stocks.json.\033[00m")
 
 
-def stock_checker(stock_ticker: str, stock_max: Union[str, int, float], stock_min: Union[str, int, float]) -> str:
-    """Checks whether the current price of the stock has increased or decreased.
+def get_change(current: float, previous: float) -> float:
+    """Calculates the percentage change between the current value and previous value.
 
     Args:
-        stock_ticker: Stock ticker value.
-        stock_max: Maximum value after which a notification has to be triggered.
-        stock_min: Minimum value below which a notification has to be triggered.
+        current: Current price of stock.
+        previous: Previous price of stock.
 
     Returns:
-        str:
-        Configured notification message.
+        float:
+        Returns the difference percentage.
     """
-    raw_details = rh.get_quote(stock_ticker)
-    price = round(float(raw_details['last_trade_price']), 2)
-    call = raw_details['instrument']
-    msg = f"The current price of {get(call).json()['simple_name']} is: ${price}"
-
-    if price < stock_min or price > stock_max:
-        day_data = rh.get_historical_quotes(stock_ticker, 'hour', 'day')
-        dd = day_data['results'][0]['historicals']
-        day_numbers = []
-        for close_price in dd:
-            day_numbers.append(round(float(close_price['close_price']), 2))
-        if day_numbers:
-            day_list = f"\nToday's change list: {day_numbers}\n"
-        else:
-            day_list = '\n'
-
-        week_data = rh.get_historical_quotes(stock_ticker, 'day', 'week')
-        wd = week_data['results'][0]['historicals']
-        week_numbers = []
-        for close_price in wd:
-            week_numbers.append(round(float(close_price['close_price']), 2))
-        week_list = f"Week's change list: {week_numbers}"
-
-        if price < stock_min:
-            message = f'{stock_ticker} is currently less than ${stock_min}\n{msg}{day_list}{week_list}\n\n'
-            return message
-        elif price > stock_max:
-            message_ = f'{stock_ticker} is currently more than ${stock_max}\n{msg}{day_list}{week_list}\n\n'
-            return message_
+    if current == previous:
+        return 0
+    try:
+        return (abs(current - previous) / previous) * 100.0
+    except ZeroDivisionError:
+        return float('inf')
 
 
-def formatter():
-    """Triggers the stock checker and formats the whats app message as needed."""
-    rh.login(username=environ.get('robinhood_user'), password=environ.get('robinhood_pass'),
-             qr_code=environ.get('robinhood_qr'))
+def write_previous(data: dict) -> None:
+    """Writes the data received into a yaml file.
 
+    Args:
+        data: Data to be written into yaml.
+    """
+    with open('previous.yaml', 'w') as file:
+        yaml.dump(data={"stocks": {k: v[-1] for k, v in data.items()}, "session": time()}, stream=file)
+
+
+def should_i_notify() -> dict:
+    """Looks for the feed file and triggers the analyzer if feed is present.
+
+    See Also:
+        Checks the data written in ``previous.yaml`` file and compares the % difference with current price.
+        If the difference is less than 5% or no difference at all, returns an empty dict.
+
+    Returns:
+        dict:
+        Dictionary of the tickers and the price as key value pairs.
+    """
     if not (stocks_dict := file_parser()):
-        log(msg='Feed file not found.')
-        return
+        print(f"\033[31m{prefix(level='ERROR')}Feed file not found.\033[00m")
+        return {}
 
-    email_text = ''
-    analyzed = 0
-    for n in range(1, 7_501):
-        if (stock_ticker := stocks_dict.get(f'stock_{n}')) and (stock_max := stocks_dict.get(f'stock_{n}_max')) and \
-                (stock_min := stocks_dict.get(f'stock_{n}_min')):
-            try:
-                # noinspection PyUnboundLocalVariable
-                if result := stock_checker(stock_ticker, float(stock_max), float(stock_min)):
-                    log(msg=result)
-                    email_text += result
-                analyzed += 1
-            except InvalidTickerSymbol:
-                log(msg=f'Faced an InvalidTickerSymbol with the Ticker::{stock_ticker}', err=True)
-    log(msg=f'Successfully analyzed {analyzed} stocks.')
-    rh.logout()
-    return email_text
+    if notification := analyze.formatter(stocks_dict):
+        if path.isfile('previous.yaml'):
+            with open('previous.yaml') as file:
+                previous = yaml.load(stream=file, Loader=yaml.FullLoader)
+            remove = []
+            for ticker, price in notification.items():
+                if get_change(current=price[1], previous=previous.get('stocks', {}).get(ticker)) < 5 and \
+                        time() - previous.get('session') < 1_800:
+                    remove.append(ticker)
+            if remove:
+                msg = f"No considerable changes on {', '.join(remove)}. Suppressing notifications to reduce noise."
+                print(f"\033[32m{prefix(level='INFO')}{msg}\033[00m")
+                for tick in remove:
+                    notification.pop(tick)
+            else:
+                write_previous(data=notification)
+        else:
+            write_previous(data=notification)
+
+        return notification
+
+
+def aws_sns(phone: str, text: str) -> None:
+    """Triggers an SMS notification via AWS SimpleNotificationService.
+
+    Args:
+        phone: Phone number of the recipient.
+        text: Text which has to be sent.
+    """
+    try:
+        response = client('sns').publish(PhoneNumber=phone,
+                                         Subject=f'Skynet Alert - {dt_string}',
+                                         Message=text)
+        if response.get('ResponseMetadata', {}).get('HTTPStatusCode', 400) == 200:
+            print(f"\033[32m{prefix(level='INFO')}Notification was sent to {phone}\n"
+                  f"{response.get('ResponseMetadata')}\n\033[00m")
+    except ClientError:
+        print(f"\033[31m{prefix(level='ERROR')}Failed to send notification to {phone}\033[00m")
+
+
+def notify(phone: str, text: str) -> None:
+    """Triggers notification using gmail-connector which uses the SMS gateway of the carrier.
+
+    Args:
+        phone: Phone number of the recipient.
+        text: Text which has to be sent.
+    """
+    notification = Messenger(gmail_user=environ.get('gmail_user'), gmail_pass=environ.get('gmail_pass'),
+                             phone=phone, subject=f'{dt_string}\nSkynet Alert', message=text).send_sms()
+    if notification.ok:
+        print(f"\033[32m{prefix(level='INFO')}Notification was sent to {phone}\033[00m")
+    else:
+        print(f"\033[31m{prefix(level='ERROR')}Failed to send notification to {phone}\033[00m")
+        print(f"\033[31m{prefix(level='ERROR')}{notification.body}\033[00m")
+        print(f"\033[2;33m{prefix(level='WARNING')}Initiating notification via AWS SNS.\033[00m")
+        aws_sns(text=text, phone=phone)
 
 
 def monitor():
-    """Triggers formatter and sends a whats app notification if there were any bothering changes in price."""
-    if market_status():
-        if notification := formatter():
-            gmail_user = environ.get('gmail_user')
-            gmail_pass = environ.get('gmail_pass')
-            phone = environ.get('phone')
-            notify = Messenger(gmail_user=gmail_user, gmail_pass=gmail_pass, phone_number=phone,
-                               subject=f'{dt_string}\nSkynet Alert', message=notification).send_sms()
-            if notify.ok:
-                log(msg=f'Notification was sent to {phone}')
-            else:
-                log(msg=f'Failed to send notification to {phone}', err=True)
-                log(msg=notify.body, err=True)
+    """Triggers formatter and sends an SMS notification if there were any bothering changes in price."""
+    if not market_status():
+        return
+    if notification := should_i_notify():
+        text = ''
+        for n in notification:
+            text += notification[n][0]
+        text = text.rstrip()
+        phone = environ.get('phone')
+        if ',' in phone:
+            phone = phone.split(',')
+        if isinstance(phone, list):
+            for each in phone:
+                notify(text=text, phone=each.strip())
         else:
-            log(msg='Nothing to report.')
-    log(msg=f"Terminated in {round(float(perf_counter()), 2)} seconds\n\n")
+            notify(text=text, phone=phone)
+    else:
+        print(f"\033[32m{prefix(level='INFO')}Nothing to report.\033[00m")
+    print(f"\033[32m{prefix(level='INFO')}Terminated in {round(float(perf_counter()), 2)} seconds.\033[00m")
 
 
 if __name__ == '__main__':

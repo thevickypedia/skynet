@@ -58,7 +58,21 @@
 </div>
 </section>
 <section id="module-terminator">
-<span id="terminator-robinhood"></span><h1>Terminator - Robinhood<a class="headerlink" href="#module-terminator" title="Permalink to this headline">¶</a></h1>
+<span id="terminator"></span><h1>Terminator<a class="headerlink" href="#module-terminator" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="terminator.aws_sns">
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">aws_sns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#terminator.aws_sns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers an SMS notification via AWS SimpleNotificationService.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phone</strong> – Phone number of the recipient.</p></li>
+<li><p><strong>text</strong> – Text which has to be sent.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="terminator.file_parser">
 <span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">file_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'stocks.json'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#terminator.file_parser" title="Permalink to this definition">¶</a></dt>
@@ -77,113 +91,105 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="terminator.formatter">
-<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">formatter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#terminator.formatter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Triggers the stock checker and formats the whats app message as needed.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="terminator.log">
-<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#terminator.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs or prints the message as necessary.</p>
+<dt class="sig sig-object py" id="terminator.get_change">
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">get_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#terminator.get_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the percentage change between the current value and previous value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>msg</strong> – Takes the message to be logged/printed as an argument.</p></li>
-<li><p><strong>err</strong> – Boolean flag whether or not to use <code class="docutils literal notranslate"><span class="pre">logger.error</span></code></p></li>
+<li><p><strong>current</strong> – Current price of stock.</p></li>
+<li><p><strong>previous</strong> – Previous price of stock.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns the difference percentage.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="terminator.market_status">
-<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">market_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#terminator.market_status" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">market_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#terminator.market_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks market status and returns True only if markets are open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if markets are open on the current date.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="terminator.monitor">
 <span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#terminator.monitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Triggers formatter and sends a whats app notification if there were any bothering changes in price.</p>
+<dd><p>Triggers formatter and sends an SMS notification if there were any bothering changes in price.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="terminator.stock_checker">
-<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">stock_checker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#terminator.stock_checker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks whether the current price of the stock has increased or decreased.</p>
+<dt class="sig sig-object py" id="terminator.notify">
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#terminator.notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers notification using gmail-connector which uses the SMS gateway of the carrier.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>stock_ticker</strong> – Stock ticker value.</p></li>
-<li><p><strong>stock_max</strong> – Maximum value after which a notification has to be triggered.</p></li>
-<li><p><strong>stock_min</strong> – Minimum value below which a notification has to be triggered.</p></li>
+<li><p><strong>phone</strong> – Phone number of the recipient.</p></li>
+<li><p><strong>text</strong> – Text which has to be sent.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Configured notification message.</p>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="terminator.should_i_notify">
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">should_i_notify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#terminator.should_i_notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Looks for the feed file and triggers the analyzer if feed is present.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Checks the data written in <code class="docutils literal notranslate"><span class="pre">previous.yaml</span></code> file and compares the % difference with current price.
+If the difference is less than 5% or no difference at all, returns an empty dict.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of the tickers and the price as key value pairs.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="terminator.write_previous">
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">write_previous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#terminator.write_previous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the data received into a yaml file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> – Data to be written into yaml.</p>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
-<section id="module-eradicator">
-<span id="eradicator-yahoofinance"></span><h1>Eradicator - YahooFinance<a class="headerlink" href="#module-eradicator" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="eradicator.file_parser">
-<span class="sig-prename descclassname"><span class="pre">eradicator.</span></span><span class="sig-name descname"><span class="pre">file_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'stocks.json'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#eradicator.file_parser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads the input file and loads the file as dictionary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input_file</strong> – Takes the input file name as an argument.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Returns a json blurb.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
+<section id="module-gatherer.analyzer">
+<span id="analyzer"></span><h1>Analyzer<a class="headerlink" href="#module-gatherer.analyzer" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="gatherer.analyzer.Analyzer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gatherer.analyzer.</span></span><span class="sig-name descname"><span class="pre">Analyzer</span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="gatherer.analyzer.Analyzer.formatter">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stocks_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer.formatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers the stock checker and formats the SMS into a dictionary.</p>
+<p>Returns:</p>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="eradicator.formatter">
-<span class="sig-prename descclassname"><span class="pre">eradicator.</span></span><span class="sig-name descname"><span class="pre">formatter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#eradicator.formatter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Triggers the stock checker and formats the whats app message as needed.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="eradicator.log">
-<span class="sig-prename descclassname"><span class="pre">eradicator.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#eradicator.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs or prints the message as necessary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>msg</strong> – Takes the message to be logged/printed as an argument.</p></li>
-<li><p><strong>err</strong> – Boolean flag whether or not to use <code class="docutils literal notranslate"><span class="pre">logger.error</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="eradicator.market_status">
-<span class="sig-prename descclassname"><span class="pre">eradicator.</span></span><span class="sig-name descname"><span class="pre">market_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#eradicator.market_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks market status and returns True only if markets are open.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="eradicator.monitor">
-<span class="sig-prename descclassname"><span class="pre">eradicator.</span></span><span class="sig-name descname"><span class="pre">monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#eradicator.monitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Triggers formatter and sends a whats app notification if there were any bothering changes in price.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="eradicator.stock_checker">
-<span class="sig-prename descclassname"><span class="pre">eradicator.</span></span><span class="sig-name descname"><span class="pre">stock_checker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#eradicator.stock_checker" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="gatherer.analyzer.Analyzer.robinhood">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">robinhood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer.robinhood" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks whether the current price of the stock has increased or decreased.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -194,7 +200,50 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Configured notification message.</p>
+<dd class="field-even"><p>A list of configured notification message and the price.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gatherer.analyzer.Analyzer.yfinance">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">yfinance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer.yfinance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the current price of the stock has increased or decreased.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stock_ticker</strong> – Stock ticker value.</p></li>
+<li><p><strong>stock_max</strong> – Maximum value after which a notification has to be triggered.</p></li>
+<li><p><strong>stock_min</strong> – Minimum value below which a notification has to be triggered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of configured notification message and the price.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gatherer.traces">
+<span id="tracer"></span><h1>Tracer<a class="headerlink" href="#module-gatherer.traces" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="gatherer.traces.prefix">
+<span class="sig-prename descclassname"><span class="pre">gatherer.traces.</span></span><span class="sig-name descname"><span class="pre">prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'DEBUG'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#gatherer.traces.prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replicates the logging config to print colored statements accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>level</strong> – Takes the log level as an argument.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A well formatted prefix to be added before a print statement.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
@@ -222,8 +271,9 @@
   <h3><a href="#">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to Skynet’s documentation!</a></li>
-<li><a class="reference internal" href="#module-terminator">Terminator - Robinhood</a></li>
-<li><a class="reference internal" href="#module-eradicator">Eradicator - YahooFinance</a></li>
+<li><a class="reference internal" href="#module-terminator">Terminator</a></li>
+<li><a class="reference internal" href="#module-gatherer.analyzer">Analyzer</a></li>
+<li><a class="reference internal" href="#module-gatherer.traces">Tracer</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 

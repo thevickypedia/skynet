@@ -62,7 +62,7 @@
 </section>
 <section id="env-variables">
 <h2>Env Variables<a class="headerlink" href="#env-variables" title="Permalink to this headline">¶</a></h2>
-<p>This script is designed to run locally using a env vars stored in a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file which is loaded upon startup.</p>
+<p>This script is designed to run locally using env vars stored in a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file which is loaded upon startup.</p>
 <p>Store env vars as below (either in <code class="docutils literal notranslate"><span class="pre">.env</span></code> file or as regular env vars)</p>
 <p>For stock analyzing:</p>
 <ul class="simple">
@@ -70,9 +70,13 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">robinhood_pass</span> <span class="pre">=</span> <span class="pre">&lt;Robinhood</span> <span class="pre">Password&gt;</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">robinhood_qr</span> <span class="pre">=</span> <span class="pre">&lt;Robinhood</span> <span class="pre">QR</span> <span class="pre">Code&gt;</span></code></p></li>
 </ul>
+<blockquote>
+<div><p>:bulb:   Skynet can work even without <code class="docutils literal notranslate"><span class="pre">Robinhood</span></code> access, as it automatically chooses <code class="docutils literal notranslate"><span class="pre">YahooFinance</span></code> to gather the details.
+However using <code class="docutils literal notranslate"><span class="pre">YahooFinance</span></code> runs longer due to endpoint restrictions.</p>
+</div></blockquote>
 <p>For notifications:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">gmail_user</span> <span class="pre">=</span> <span class="pre">xxx&#64;yyy&#64;gmail.com</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gmail_user</span> <span class="pre">=</span> <span class="pre">xxx&#64;gmail.com</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gmail_pass</span> <span class="pre">=</span> <span class="pre">PASSWORD</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">phone</span> <span class="pre">=</span> <span class="pre">+1234567890</span></code></p></li>
 </ul>

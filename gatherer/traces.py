@@ -1,5 +1,5 @@
 from datetime import datetime
-from inspect import getframeinfo, stack, getouterframes, currentframe
+from inspect import currentframe, getframeinfo, getouterframes, stack
 
 DATETIME_FORMAT = '%b-%d-%Y %I:%M:%S %p'
 

@@ -19,7 +19,7 @@ Below is an example for a single stock, this can be extended as needed.
 ```
 ### Env Variables
 
-This script is designed to run locally using a env vars stored in a `.env` file which is loaded upon startup.
+This script is designed to run locally using env vars stored in a `.env` file which is loaded upon startup.
 
 Store env vars as below (either in `.env` file or as regular env vars)
 
@@ -28,8 +28,11 @@ For stock analyzing:
   - `robinhood_pass = <Robinhood Password>`
   - `robinhood_qr = <Robinhood QR Code>`
 
+> :bulb: &nbsp; Skynet can work even without `Robinhood` access, as it automatically chooses `YahooFinance` to gather the details.
+> However using `YahooFinance` runs longer due to endpoint restrictions.
+
 For notifications:
-  - `gmail_user = xxx@yyy@gmail.com`
+  - `gmail_user = xxx@gmail.com`
   - `gmail_pass = PASSWORD`
   - `phone = +1234567890`
 

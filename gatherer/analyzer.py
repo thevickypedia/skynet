@@ -1,5 +1,4 @@
 from os import environ
-from typing import Union
 
 import requests
 from pyrh import Robinhood
@@ -12,6 +11,12 @@ rh = Robinhood()
 
 
 class Analyzer:
+    """Initiates ``Analyzer`` object to instantiate the class methods ``robinhood`` and ``yfinance`` using their API.
+
+    >>> Analyzer
+
+    """
+
     @classmethod
     def robinhood(cls, stock_ticker: str, stock_max: float, stock_min: float) -> list:
         """Checks whether the current price of the stock has increased or decreased.
@@ -31,27 +36,22 @@ class Analyzer:
         msg = f"The current price of {requests.get(call).json()['simple_name']} is: ${price}"
 
         if price < stock_min or price > stock_max:
+            day_list, week_list = '', ''
+
             day_data = rh.get_historical_quotes(stock_ticker, 'hour', 'day')
-            dd = day_data['results'][0]['historicals']
-            day_numbers = []
-            for close_price in dd:
-                day_numbers.append(round(float(close_price['close_price']), 2))
-            if day_numbers:
-                day_list = f"\nToday's change list: {day_numbers}\n"
-            else:
-                day_list = '\n'
+            if day_numbers := [round(float(close_price['close_price']), 2) for close_price in
+                               day_data['results'][0]['historicals']]:
+                day_list = f"Today's change list: {day_numbers}"
 
             week_data = rh.get_historical_quotes(stock_ticker, 'day', 'week')
-            wd = week_data['results'][0]['historicals']
-            week_numbers = []
-            for close_price in wd:
-                week_numbers.append(round(float(close_price['close_price']), 2))
-            week_list = f"Week's change list: {week_numbers}"
+            if week_numbers := [round(float(close_price['close_price']), 2) for close_price in
+                                week_data['results'][0]['historicals']]:
+                week_list = f"Week's change list: {week_numbers}"
 
             if price < stock_min:
-                return [f'{stock_ticker} is currently less than ${stock_min}\n{msg}{day_list}{week_list}\n\n', price]
+                return [f'{stock_ticker} is currently less than ${stock_min}\n{msg}\n{day_list}\n{week_list}\n', price]
             elif price > stock_max:
-                return [f'{stock_ticker} is currently more than ${stock_max}\n{msg}{day_list}{week_list}\n\n', price]
+                return [f'{stock_ticker} is currently more than ${stock_max}\n{msg}\n{day_list}\n{week_list}\n', price]
 
     @classmethod
     def yfinance(cls, stock_ticker: str, stock_max: float, stock_min: float) -> list:
@@ -83,7 +83,8 @@ class Analyzer:
         """Triggers the stock checker and formats the SMS into a dictionary.
 
         Returns:
-
+            dict:
+            Returns a dictionary of ``{stock_ticker: [SMS_text, price]}``
         """
         if (rh_user := environ.get('robinhood_user')) and \
                 (rh_pass := environ.get('robinhood_pass')) and \
@@ -111,6 +112,8 @@ class Analyzer:
                 print(f"\033[31m{prefix(level='ERROR')}"
                       f"Faced an InvalidTickerSymbol with the Ticker::{key}\033[00m")
         print(f"\033[32m{prefix(level='INFO')}Successfully analyzed {len(email_text)} stocks.\033[00m")
+
         if rh.auth_token:
             rh.logout()
+
         return email_text

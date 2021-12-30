@@ -16,7 +16,7 @@ from gatherer.traces import prefix
 
 load_dotenv(dotenv_path='.env', override=True, verbose=True)
 
-dt_string = datetime.now().strftime("%A, %B %d, %Y %I:%M %p")
+dt_now = datetime.now()
 
 analyze = Analyzer()
 
@@ -28,7 +28,7 @@ def market_status() -> bool:
         bool:
         True if markets are open on the current date.
     """
-    print(f"\033[32m{prefix(level='INFO')}{dt_string}\033[00m")
+    print(f"\033[32m{prefix(level='INFO')}{dt_now.strftime('%A, %B %d, %Y %I:%M %p')}\033[00m")
     url = get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
     today = date.today().strftime("%B %d, %Y")
     if today in url.text:
@@ -84,8 +84,11 @@ def write_previous(data: dict) -> None:
         yaml.dump(data={"stocks": {k: v[-1] for k, v in data.items()}, "session": time()}, stream=file)
 
 
-def should_i_notify() -> dict:
+def should_i_notify(change_percent: int = 5) -> dict:
     """Looks for the feed file and triggers the analyzer if feed is present.
+
+    Args:
+        change_percent: Takes the change percentage from previous notification as an argument. Defaults to 5%.
 
     See Also:
         Checks the data written in ``previous.yaml`` file and compares the % difference with current price.
@@ -106,7 +109,8 @@ def should_i_notify() -> dict:
             remove = []
             for ticker, price in notification.items():
                 if prev_price := previous.get('stocks', {}).get(ticker):
-                    if get_change(current=price[1], previous=prev_price) < 5 and time() - previous['session'] < 1_800:
+                    if get_change(current=price[1], previous=prev_price) < change_percent and \
+                            time() - previous['session'] < 1_800:
                         remove.append(ticker)
             if remove:
                 msg = f"No considerable changes on {', '.join(remove)}. Suppressing notifications to reduce noise."
@@ -130,7 +134,7 @@ def aws_sns(phone: str, text: str) -> None:
     """
     try:
         response = client('sns').publish(PhoneNumber=phone,
-                                         Subject=f'Skynet Alert - {dt_string}',
+                                         Subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}',
                                          Message=text)
         if response.get('ResponseMetadata', {}).get('HTTPStatusCode', 400) == 200:
             print(f"\033[32m{prefix(level='INFO')}Notification was sent to {phone}\n"
@@ -147,7 +151,8 @@ def notify(phone: str, text: str) -> None:
         text: Text which has to be sent.
     """
     notification = Messenger(gmail_user=environ.get('gmail_user'), gmail_pass=environ.get('gmail_pass'),
-                             phone=phone, subject=f'{dt_string}\nSkynet Alert', message=text).send_sms()
+                             phone=phone, subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}\n',
+                             message=text).send_sms()
     if notification.ok:
         print(f"\033[32m{prefix(level='INFO')}Notification was sent to {phone}\033[00m")
     else:
@@ -165,15 +170,12 @@ def monitor():
         text = ''
         for n in notification:
             text += notification[n][0]
-        text = text.rstrip()
-        phone = environ.get('phone')
-        if ',' in phone:
-            phone = phone.split(',')
-        if isinstance(phone, list):
-            for each in phone:
-                notify(text=text, phone=each.strip())
+        if contact := environ.get('phone'):
+            for phone in contact.strip('[').strip(']').split(','):
+                notify(text=text.rstrip(), phone=phone.strip())
         else:
-            notify(text=text, phone=phone)
+            print(f"\033[2;33m{prefix(level='WARNING')}"
+                  f"Store phone number as `phone` in env vars to enable notifications.\033[00m")
     else:
         print(f"\033[32m{prefix(level='INFO')}Nothing to report.\033[00m")
     print(f"\033[32m{prefix(level='INFO')}Terminated in {round(float(perf_counter()), 2)} seconds.\033[00m")

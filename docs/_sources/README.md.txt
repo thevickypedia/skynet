@@ -1,5 +1,5 @@
 # Skynet
-Stock Alerter using Robinhood api
+Stock Alerter using `Robinhood`/`YFinance` api
 
 The stock ticker value, minimum amount below and maximum amount above which you'd like to be notified has to be added to a file: `stocks.json`. 
 
@@ -36,7 +36,7 @@ For notifications:
   - `gmail_pass = PASSWORD`
   - `phone = +1234567890`
 
-> :bulb: &nbsp; Phone numbers can be comma separated values, to notify multiple people.
+> :bulb: &nbsp; Phone numbers can be `comma` separated values, to notify multiple people.
 
 ### Coding Standards
 Docstring format: [`Google`](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) <br>
@@ -54,6 +54,11 @@ Clean code with pre-commit hooks: [`flake8`](https://flake8.pycqa.org/en/latest/
 **Usage**
 <br>
 `pre-commit run --all-files`
+
+### Runbook
+[![made-with-sphinx-doc](https://img.shields.io/badge/Code%20Docs-Sphinx-1f425f.svg)](https://www.sphinx-doc.org/en/master/man/sphinx-autogen.html)
+
+[https://thevickypedia.github.io/gmail-connector/](https://thevickypedia.github.io/gmail-connector/)
 
 ## License & copyright
 

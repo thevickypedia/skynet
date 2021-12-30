@@ -33,7 +33,7 @@ class Analyzer:
         raw_details = rh.get_quote(stock_ticker)
         price = round(float(raw_details['last_trade_price']), 2)
         call = raw_details['instrument']
-        msg = f"The current price of {requests.get(call).json()['simple_name']} is: ${price}"
+        msg = f"Current price of {requests.get(call).json()['simple_name']}: ${price}"
 
         if price < stock_min or price > stock_max:
             day_list, week_list = '', ''
@@ -41,17 +41,17 @@ class Analyzer:
             day_data = rh.get_historical_quotes(stock_ticker, 'hour', 'day')
             if day_numbers := [round(float(close_price['close_price']), 2) for close_price in
                                day_data['results'][0]['historicals']]:
-                day_list = f"Today's change list: {day_numbers}"
+                day_list = f"Today's change: {day_numbers}"
 
             week_data = rh.get_historical_quotes(stock_ticker, 'day', 'week')
             if week_numbers := [round(float(close_price['close_price']), 2) for close_price in
                                 week_data['results'][0]['historicals']]:
-                week_list = f"Week's change list: {week_numbers}"
+                week_list = f"Week's change: {week_numbers}"
 
             if price < stock_min:
-                return [f'{stock_ticker} is currently less than ${stock_min}\n{msg}\n{day_list}\n{week_list}\n', price]
+                return [f'{stock_ticker} is less than ${stock_min}\n{msg}\n{day_list}\n{week_list}\n', price]
             elif price > stock_max:
-                return [f'{stock_ticker} is currently more than ${stock_max}\n{msg}\n{day_list}\n{week_list}\n', price]
+                return [f'{stock_ticker} is more than ${stock_max}\n{msg}\n{day_list}\n{week_list}\n', price]
 
     @classmethod
     def yfinance(cls, stock_ticker: str, stock_max: float, stock_min: float) -> list:
@@ -106,7 +106,7 @@ class Analyzer:
             if isinstance(value, str):
                 value = [v.strip() for v in value.split(',') if v.strip().isdigit()]
             try:
-                if result := source(stock_ticker=key, stock_min=float(max(value)), stock_max=float(min(value))):
+                if result := source(stock_ticker=key, stock_max=float(max(value)), stock_min=float(min(value))):
                     email_text[key] = result
             except InvalidTickerSymbol:
                 print(f"\033[31m{prefix(level='ERROR')}"

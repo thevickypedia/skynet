@@ -51,6 +51,7 @@
 <li class="toctree-l2"><a class="reference internal" href="README.html#env-variables">Env Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#coding-standards">Coding Standards</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#runbook">Runbook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#license-copyright">License &amp; copyright</a></li>
 </ul>
 </li>
@@ -146,8 +147,13 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="terminator.should_i_notify">
-<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">should_i_notify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#terminator.should_i_notify" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">should_i_notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">change_percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#terminator.should_i_notify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Looks for the feed file and triggers the analyzer if feed is present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>change_percent</strong> – Takes the change percentage from previous notification as an argument. Defaults to 5%.</p>
+</dd>
+</dl>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Checks the data written in <code class="docutils literal notranslate"><span class="pre">previous.yaml</span></code> file and compares the % difference with current price.

@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from json import load
 from json.decoder import JSONDecodeError
 from os import environ, path
@@ -18,8 +18,6 @@ load_dotenv(dotenv_path='.env', override=True, verbose=True)
 
 dt_now = datetime.now()
 
-analyze = Analyzer()
-
 
 def market_status() -> bool:
     """Checks market status and returns True only if markets are open.
@@ -30,7 +28,7 @@ def market_status() -> bool:
     """
     print(f"\033[32m{prefix(level='INFO')}{dt_now.strftime('%A, %B %d, %Y %I:%M %p')}\033[00m")
     url = get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
-    today = date.today().strftime("%B %d, %Y")
+    today = dt_now.strftime("%B %d, %Y")
     if today in url.text:
         print(f"\033[2;33m{prefix(level='WARNING')}{today}: The markets are closed today.\033[00m")
     else:
@@ -102,7 +100,7 @@ def should_i_notify(change_percent: int = 5) -> dict:
         print(f"\033[31m{prefix(level='ERROR')}Feed file not found.\033[00m")
         return {}
 
-    if notification := analyze.formatter(stocks_dict):
+    if notification := Analyzer().formatter(stocks_dict):
         if path.isfile('previous.yaml'):
             with open('previous.yaml') as file:
                 previous = yaml.load(stream=file, Loader=yaml.FullLoader)
@@ -175,7 +173,7 @@ def monitor():
                 notify(text=text.rstrip(), phone=phone.strip())
         else:
             print(f"\033[2;33m{prefix(level='WARNING')}"
-                  f"Store phone number as `phone` in env vars to enable notifications.\033[00m")
+                  "Store phone number as 'phone' in env vars to enable notifications.\033[00m")
     else:
         print(f"\033[32m{prefix(level='INFO')}Nothing to report.\033[00m")
     print(f"\033[32m{prefix(level='INFO')}Terminated in {round(float(perf_counter()), 2)} seconds.\033[00m")

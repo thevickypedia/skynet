@@ -6,15 +6,12 @@ The stock ticker value, minimum amount below and maximum amount above which you'
 Below is an example for a single stock, this can be extended as needed.
 
 ### Source File
+> Minimum and maximum values for the stock can be either a list or a comma separated string.
+> The order doesn't matter.
 ```json
 {
-  "AMZN": [3000, 4000]
-}
-```
-[OR]
-```json
-{
-  "AAPL": "150, 350"
+  "AMZN": [4000, 3000],
+  "TSLA": "1000, 1400"
 }
 ```
 ### Env Variables
@@ -37,6 +34,7 @@ For notifications:
   - `phone = +1234567890`
 
 > :bulb: &nbsp; Phone numbers can be `comma` separated values, to notify multiple people.
+> If notifications via [`gmail-connector`](https://github.com/thevickypedia/gmail-connector) fails, an SMS is triggered using AWS SNS.
 
 ### Coding Standards
 Docstring format: [`Google`](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) <br>

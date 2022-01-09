@@ -148,8 +148,7 @@ def notify(phone: str, text: str) -> None:
         phone: Phone number of the recipient.
         text: Text which has to be sent.
     """
-    notification = Messenger(gmail_user=environ.get('gmail_user'), gmail_pass=environ.get('gmail_pass'),
-                             phone=phone, subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}\n',
+    notification = Messenger(phone=phone, subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}\n',
                              message=text).send_sms()
     if notification.ok:
         print(f"\033[32m{prefix(level='INFO')}Notification was sent to {phone}\033[00m")
@@ -160,7 +159,7 @@ def notify(phone: str, text: str) -> None:
         aws_sns(text=text, phone=phone)
 
 
-def monitor():
+def monitor() -> None:
     """Triggers formatter and sends an SMS notification if there were any bothering changes in price."""
     if not market_status():
         return

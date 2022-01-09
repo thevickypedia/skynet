@@ -48,14 +48,13 @@
 <p>Below is an example for a single stock, this can be extended as needed.</p>
 <section id="source-file">
 <h2>Source File<a class="headerlink" href="#source-file" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Minimum and maximum values for the stock can be either a list or a comma separated string.
+The order doesn’t matter.</p>
+</div></blockquote>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;AMZN&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>[OR]</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;AAPL&quot;</span><span class="p">:</span> <span class="s2">&quot;150, 350&quot;</span>
+  <span class="nt">&quot;AMZN&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">],</span>
+  <span class="nt">&quot;TSLA&quot;</span><span class="p">:</span> <span class="s2">&quot;1000, 1400&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -81,7 +80,8 @@ However using <code class="docutils literal notranslate"><span class="pre">Yahoo
 <li><p><code class="docutils literal notranslate"><span class="pre">phone</span> <span class="pre">=</span> <span class="pre">+1234567890</span></code></p></li>
 </ul>
 <blockquote>
-<div><p>:bulb:   Phone numbers can be <code class="docutils literal notranslate"><span class="pre">comma</span></code> separated values, to notify multiple people.</p>
+<div><p>:bulb:   Phone numbers can be <code class="docutils literal notranslate"><span class="pre">comma</span></code> separated values, to notify multiple people.
+If notifications via <a class="reference external" href="https://github.com/thevickypedia/gmail-connector"><code class="docutils literal notranslate"><span class="pre">gmail-connector</span></code></a> fails, an SMS is triggered using AWS SNS.</p>
 </div></blockquote>
 </section>
 <section id="coding-standards">

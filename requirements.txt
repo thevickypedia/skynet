@@ -1,7 +1,7 @@
-twilio==6.45.3
-boto3==1.15.4
-pyrh==2.0
-pytz==2020.1
-requests==2.24.0
-python_dotenv==0.19.0
-gmail-connector>=0.4.4
+boto3>=1.15.4
+pyrh>=2.0
+pytz>=2020.1
+requests>=2.24.0
+python_dotenv>=0.19.0
+gmail-connector>=0.4.6
+yfinance>=0.1.68

@@ -18,13 +18,14 @@ class Analyzer:
     """
 
     @classmethod
-    def robinhood(cls, stock_ticker: str, stock_max: float, stock_min: float) -> list:
+    def robinhood(cls, stock_ticker: str, stock_max: float, stock_min: float, short: bool = True) -> list:
         """Checks whether the current price of the stock has increased or decreased.
 
         Args:
             stock_ticker: Stock ticker value.
             stock_max: Maximum value after which a notification has to be triggered.
             stock_min: Minimum value below which a notification has to be triggered.
+            short: Boolean flag to send a short summary vs long description.
 
         Returns:
             list:
@@ -32,12 +33,17 @@ class Analyzer:
         """
         raw_details = rh.get_quote(stock_ticker)
         price = round(float(raw_details['last_trade_price']), 2)
-        call = raw_details['instrument']
-        msg = f"Current price of {requests.get(call).json()['simple_name']}: ${price}"
 
         if price < stock_min or price > stock_max:
+            if short:
+                if price < stock_min:
+                    return [f'{stock_ticker} [${price}] is less than {int(stock_min)}\n', price]
+                elif price > stock_max:
+                    return [f'{stock_ticker} [${price}] is more than ${int(stock_max)}\n', price]
+
             day_list, week_list = '', ''
 
+            msg = f"Current price of {requests.get(raw_details['instrument']).json()['simple_name']}: ${price}"
             day_data = rh.get_historical_quotes(stock_ticker, 'hour', 'day')
             if day_numbers := [round(float(close_price['close_price']), 2) for close_price in
                                day_data['results'][0]['historicals']]:
@@ -54,13 +60,14 @@ class Analyzer:
                 return [f'{stock_ticker} is more than ${stock_max}\n{msg}\n{day_list}\n{week_list}\n', price]
 
     @classmethod
-    def yfinance(cls, stock_ticker: str, stock_max: float, stock_min: float) -> list:
+    def yfinance(cls, stock_ticker: str, stock_max: float, stock_min: float, short: bool = True) -> list:
         """Checks whether the current price of the stock has increased or decreased.
 
         Args:
             stock_ticker: Stock ticker value.
             stock_max: Maximum value after which a notification has to be triggered.
             stock_min: Minimum value below which a notification has to be triggered.
+            short: Boolean flag to send a short summary vs long description.
 
         Returns:
             list:
@@ -68,9 +75,15 @@ class Analyzer:
         """
         raw_details = Ticker(ticker=stock_ticker).info
         price = round(float(raw_details['currentPrice']), 2)
-        msg = f"The current price of {raw_details.get('longName')} is: ${price}"
 
         if price < stock_min or price > stock_max:
+            if short:
+                if price < stock_min:
+                    return [f'{stock_ticker} [${price}] is currently less than {int(stock_min)}\n', price]
+                elif price > stock_max:
+                    return [f'{stock_ticker} [${price}] is currently more than {int(stock_max)}\n', price]
+
+            msg = f"The current price of {raw_details.get('longName')} is: ${price}"
             day_list = f"\nToday's change list: {[raw_details.get('previousClose'), raw_details.get('open')]}"
 
             if price < stock_min:
@@ -97,7 +110,7 @@ class Analyzer:
             print(f"\033[32m{prefix(level='INFO')}Using YFinance open session to monitor watchlist.\033[00m")
             source = cls.yfinance
 
-        email_text = {}
+        data_dict = {}
         for key, value in stocks_dict.items():
             if len(value) < 2:
                 continue
@@ -107,13 +120,12 @@ class Analyzer:
                 value = [v.strip() for v in value.split(',') if v.strip().isdigit()]
             try:
                 if result := source(stock_ticker=key, stock_max=float(max(value)), stock_min=float(min(value))):
-                    email_text[key] = result
+                    data_dict[key] = result
             except InvalidTickerSymbol:
                 print(f"\033[31m{prefix(level='ERROR')}"
                       f"Faced an InvalidTickerSymbol with the Ticker::{key}\033[00m")
-        print(f"\033[32m{prefix(level='INFO')}Successfully analyzed {len(email_text)} stocks.\033[00m")
 
         if rh.auth_token:
             rh.logout()
 
-        return email_text
+        return data_dict

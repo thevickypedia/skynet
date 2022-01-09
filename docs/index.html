@@ -127,7 +127,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="terminator.monitor">
-<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#terminator.monitor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">terminator.</span></span><span class="sig-name descname"><span class="pre">monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#terminator.monitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Triggers formatter and sends an SMS notification if there were any bothering changes in price.</p>
 </dd></dl>
 
@@ -206,7 +206,7 @@ If the difference is less than 5% or no difference at all, returns an empty dict
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gatherer.analyzer.Analyzer.robinhood">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">robinhood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer.robinhood" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">robinhood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer.robinhood" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks whether the current price of the stock has increased or decreased.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -214,6 +214,7 @@ If the difference is less than 5% or no difference at all, returns an empty dict
 <li><p><strong>stock_ticker</strong> – Stock ticker value.</p></li>
 <li><p><strong>stock_max</strong> – Maximum value after which a notification has to be triggered.</p></li>
 <li><p><strong>stock_min</strong> – Minimum value below which a notification has to be triggered.</p></li>
+<li><p><strong>short</strong> – Boolean flag to send a short summary vs long description.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -227,7 +228,7 @@ If the difference is less than 5% or no difference at all, returns an empty dict
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gatherer.analyzer.Analyzer.yfinance">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">yfinance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer.yfinance" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">yfinance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock_ticker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#gatherer.analyzer.Analyzer.yfinance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks whether the current price of the stock has increased or decreased.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -235,6 +236,7 @@ If the difference is less than 5% or no difference at all, returns an empty dict
 <li><p><strong>stock_ticker</strong> – Stock ticker value.</p></li>
 <li><p><strong>stock_max</strong> – Maximum value after which a notification has to be triggered.</p></li>
 <li><p><strong>stock_min</strong> – Minimum value below which a notification has to be triggered.</p></li>
+<li><p><strong>short</strong> – Boolean flag to send a short summary vs long description.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

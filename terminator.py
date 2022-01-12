@@ -14,7 +14,8 @@ from requests import get
 from gatherer.analyzer import Analyzer
 from gatherer.traces import prefix
 
-load_dotenv(dotenv_path='.env', override=True, verbose=True)
+if path.isfile('.env'):
+    load_dotenv(dotenv_path='.env', override=True, verbose=True)
 
 dt_now = datetime.now()
 
@@ -108,7 +109,7 @@ def should_i_notify(change_percent: int = 5) -> dict:
             for ticker, price in notification.items():
                 if prev_price := previous.get('stocks', {}).get(ticker):
                     if get_change(current=price[1], previous=prev_price) < change_percent and \
-                            time() - previous['session'] < 1_800:
+                            time() - previous['session'] < int(environ.get('previous', 3_600)):
                         remove.append(ticker)
             if remove:
                 msg = f"No considerable changes on {', '.join(remove)}. Suppressing notifications to reduce noise."

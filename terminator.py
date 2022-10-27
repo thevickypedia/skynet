@@ -1,21 +1,21 @@
+import json
+import os
+import time
 from datetime import datetime
-from json import load
 from json.decoder import JSONDecodeError
-from os import environ, path
-from time import perf_counter, time
 
+import boto3
+import dotenv
+import requests
 import yaml
-from boto3 import client
 from botocore.exceptions import ClientError
-from dotenv import load_dotenv
 from gmailconnector.send_sms import Messenger
-from requests import get
 
 from gatherer.analyzer import Analyzer
 from gatherer.traces import prefix
 
-if path.isfile('.env'):
-    load_dotenv(dotenv_path='.env', override=True, verbose=True)
+if os.path.isfile('.env'):
+    dotenv.load_dotenv(dotenv_path='.env', override=True, verbose=True)
 
 dt_now = datetime.now()
 
@@ -28,7 +28,7 @@ def market_status() -> bool:
         True if markets are open on the current date.
     """
     print(f"\033[32m{prefix(level='INFO')}{dt_now.strftime('%A, %B %d, %Y %I:%M %p')}\033[00m")
-    url = get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
+    url = requests.get(url='https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
     today = dt_now.strftime("%B %d, %Y")
     if today in url.text:
         print(f"\033[2;33m{prefix(level='WARNING')}{today}: The markets are closed today.\033[00m")
@@ -46,10 +46,10 @@ def file_parser(input_file: str = 'stocks.json') -> dict:
         dict:
         Returns a json blurb.
     """
-    if path.isfile(input_file):
+    if os.path.isfile(input_file):
         with open(input_file) as stock_file:
             try:
-                return load(fp=stock_file)
+                return json.load(fp=stock_file)
             except JSONDecodeError:
                 print(f"\033[31m{prefix(level='ERROR')}Unable to load stocks.json.\033[00m")
 
@@ -80,7 +80,7 @@ def write_previous(data: dict) -> None:
         data: Data to be written into yaml.
     """
     with open('previous.yaml', 'w') as file:
-        yaml.dump(data={"stocks": {k: v[-1] for k, v in data.items()}, "session": time()}, stream=file)
+        yaml.dump(data={"stocks": {k: v[-1] for k, v in data.items()}, "session": time.time()}, stream=file)
 
 
 def should_i_notify(change_percent: int = 5) -> dict:
@@ -102,14 +102,14 @@ def should_i_notify(change_percent: int = 5) -> dict:
         return {}
 
     if notification := Analyzer().formatter(stocks_dict):
-        if path.isfile('previous.yaml'):
+        if os.path.isfile('previous.yaml'):
             with open('previous.yaml') as file:
                 previous = yaml.load(stream=file, Loader=yaml.FullLoader)
             remove = []
             for ticker, price in notification.items():
                 if prev_price := previous.get('stocks', {}).get(ticker):
                     if get_change(current=price[1], previous=prev_price) < change_percent and \
-                            time() - previous['session'] < int(environ.get('previous', 3_600)):
+                            time.time() - previous['session'] < int(os.environ.get('previous', 3_600)):
                         remove.append(ticker)
             if remove:
                 msg = f"No considerable changes on {', '.join(remove)}. Suppressing notifications to reduce noise."
@@ -132,9 +132,9 @@ def aws_sns(phone: str, text: str) -> None:
         text: Text which has to be sent.
     """
     try:
-        response = client('sns').publish(PhoneNumber=phone,
-                                         Subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}',
-                                         Message=text)
+        response = boto3.client('sns').publish(PhoneNumber=phone,
+                                               Subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}',
+                                               Message=text)
         if response.get('ResponseMetadata', {}).get('HTTPStatusCode', 400) == 200:
             print(f"\033[32m{prefix(level='INFO')}Notification was sent to {phone}\n"
                   f"{response.get('ResponseMetadata')}\n\033[00m")
@@ -149,8 +149,8 @@ def notify(phone: str, text: str) -> None:
         phone: Phone number of the recipient.
         text: Text which has to be sent.
     """
-    notification = Messenger(phone=phone, subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}\n',
-                             message=text).send_sms()
+    notification = Messenger().send_sms(phone=phone, subject=f'Skynet Alert::{dt_now.strftime("%b %d, %H:%M")}\n',
+                                        message=text)
     if notification.ok:
         print(f"\033[32m{prefix(level='INFO')}Notification was sent to {phone}\033[00m")
     else:
@@ -168,7 +168,7 @@ def monitor() -> None:
         text = ''
         for n in notification:
             text += notification[n][0]
-        if contact := environ.get('phone'):
+        if contact := os.environ.get('phone'):
             for phone in contact.strip('[').strip(']').split(','):
                 notify(text=text.rstrip(), phone=phone.strip())
         else:
@@ -176,7 +176,7 @@ def monitor() -> None:
                   "Store phone number as 'phone' in env vars to enable notifications.\033[00m")
     else:
         print(f"\033[32m{prefix(level='INFO')}Nothing to report.\033[00m")
-    print(f"\033[32m{prefix(level='INFO')}Terminated in {round(float(perf_counter()), 2)} seconds.\033[00m")
+    print(f"\033[32m{prefix(level='INFO')}Terminated in {round(float(time.perf_counter()), 2)} seconds.\033[00m")
 
 
 if __name__ == '__main__':

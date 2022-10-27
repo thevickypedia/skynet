@@ -1,4 +1,4 @@
-from os import environ
+import os
 
 import requests
 from pyrh import Robinhood
@@ -99,9 +99,9 @@ class Analyzer:
             dict:
             Returns a dictionary of ``{stock_ticker: [SMS_text, price]}``
         """
-        if (rh_user := environ.get('robinhood_user')) and \
-                (rh_pass := environ.get('robinhood_pass')) and \
-                (rh_qr := environ.get('robinhood_qr')):
+        if (rh_user := os.environ.get('robinhood_user')) and \
+                (rh_pass := os.environ.get('robinhood_pass')) and \
+                (rh_qr := os.environ.get('robinhood_qr')):
             # noinspection PyUnboundLocalVariable
             rh.login(username=rh_user, password=rh_pass, qr_code=rh_qr)
             print(f"\033[32m{prefix(level='INFO')}Using Robinhood's secure session to monitor watchlist.\033[00m")
